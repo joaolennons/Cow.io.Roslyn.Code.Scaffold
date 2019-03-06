@@ -1,1 +1,1 @@
-# Cow.io.Roslyn.Code.Scaffold
+# Sandbox project for scaffolding code with Microsoft.CodeAnalysis.CSharp
