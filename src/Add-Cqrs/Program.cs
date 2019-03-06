@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Hanoog;
-using Microsoft.Build.Construction;
-using Microsoft.CodeAnalysis;
 using SolutionManager;
 using Templates;
 
 namespace Add_Cqrs
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            args = new string[] { "-Project AppTest", "-All" };
+            args = new string[] { "-Project AppTest", "-All", "-Action All" };
 
             var projects = SolutionProvider.GetProjects();
 
             var projectName = ArgumentParser.ParseProject(args);
             var scaffoldKind = ArgumentParser.ParseScaffold(args);
+            var crud = ArgumentParser.ParseAction(args);
 
             if (string.IsNullOrEmpty(projectName))
                 return;
@@ -44,10 +41,14 @@ namespace Add_Cqrs
             if (scaffoldKind.HasFlag(Scaffold.Notification) || scaffoldKind.HasFlag(Scaffold.All))
             {
                 Console.WriteLine("Gerando Notification...");
-                var code = new Notification("Heineken", "BeerCreated");
+                if (crud.HasFlag(Crud.Create) || crud.HasFlag(Crud.All))
+                {
+                    new ProjectManager(project)
+                        .AddDocument(new Notification("Heineken", "Beer", Templates.Action.Create));
 
-                new ProjectManager(project)
-                    .AddDocument(code);
+                    new ProjectManager(project)
+                        .AddDocument(new NotificationHandler("Heineken", "Beer", Templates.Action.Create | Templates.Action.Update));
+                }
             }
 
             if (scaffoldKind.HasFlag(Scaffold.Command) || scaffoldKind.HasFlag(Scaffold.All))

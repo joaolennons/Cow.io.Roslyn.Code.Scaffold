@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Templates
+﻿namespace Templates
 {
     internal static class TemplateConsts
     {
         public static string IRequest(string response) => $"{nameof(IRequest)}<{response}>";
         public static string INotification => nameof(INotification);
+        public static string INotificationHandler(string notification) => $"{nameof(INotificationHandler)}<{notification}>";
     }
 
     public class Folders
