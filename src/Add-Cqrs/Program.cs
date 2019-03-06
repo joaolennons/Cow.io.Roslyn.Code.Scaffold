@@ -36,6 +36,9 @@ namespace Add_Cqrs
 
                 new ProjectManager(project)
                     .AddDocument(code);
+
+                new ProjectManager(project)
+                    .AddDocument(new QueryHandler("Heineken", "Beer"));
             }
 
             if (scaffoldKind.HasFlag(Scaffold.Notification) || scaffoldKind.HasFlag(Scaffold.All))

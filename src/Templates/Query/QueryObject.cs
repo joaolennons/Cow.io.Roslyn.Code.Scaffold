@@ -7,9 +7,9 @@ namespace Templates
 {
     public class QueryObject : ISourceCode
     {
-        private string _namespace;
-        private string _queryName;
-        private string _queryResponse;
+        private readonly string _namespace;
+        private readonly string _queryName;
+        private readonly string _queryResponse;
 
         public string FileName => $"{_queryName}.cs";
         public string Folder => Folders.Queries;
@@ -25,19 +25,11 @@ namespace Templates
         {
             get
             {
-                // Create a Property: (public int Quantity { get; set; })
-                var propertyDeclaration = SyntaxFactory.PropertyDeclaration(SyntaxFactory.ParseTypeName("int"), "Quantity")
-                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
-                    .AddAccessorListAccessors(SyntaxFactory.AccessorDeclaration(SyntaxKind.GetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
-
                 return Namespace
                     .AddUsings(Usings)
                     .AddMembers(
-                        QueryClass.Inherits(TemplateConsts.IRequest(_queryResponse))
-                        .AddMembers(propertyDeclaration))
-                    .AddMembers(
-                        ResponseClass
-                        .AddMembers(propertyDeclaration))
+                        QueryClass.Inherits(TemplateConsts.IRequest(_queryResponse)))
+                    .AddMembers(ResponseClass)
                     .NormalizeWhitespace()
                     .ToFullString();
             }

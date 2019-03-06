@@ -6,18 +6,20 @@
         public static string INotification => nameof(INotification);
         public static string INotificationHandler(string notification) => $"{nameof(INotificationHandler)}<{notification}>";
         public static string ICommandHandler(string request, string response) => $"{nameof(ICommandHandler)}<{request},{response}>";
+        public static string IQueryHandler(string request, string response) => $"{nameof(IQueryHandler)}<{request},{response}>";
     }
 
-    public class Folders
+    internal class Folders
     {
         public static string Queries => nameof(Queries);
         public static string Notifications => nameof(Notifications);
         public static string Commands => nameof(Commands);
     }
 
-    public class Method
+    internal class Method
     {
         public static string EmptyAsyncBlockOf<T>() => $"await Task.FromResult(default({typeof(T).Name}));";
+        public static string EmptyAsyncBlockOf(string type) => $"await Task.FromResult(default({type}));";
         public static string EmptyAsyncBlock => "await Task.FromResult(0)";
 
         public class Returns
@@ -28,9 +30,10 @@
         }
     }
 
-    public class Keywords
+    internal class Keywords
     {
         public static string Return => nameof(Return).ToLower();
         public static string Void => nameof(Void).ToLower();
     }
 }
+
