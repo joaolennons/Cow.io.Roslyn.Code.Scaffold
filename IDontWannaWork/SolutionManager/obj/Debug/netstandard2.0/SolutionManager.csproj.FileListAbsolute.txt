@@ -1,0 +1,12 @@
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\bin\Debug\netstandard2.0\SolutionManager.deps.json
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\bin\Debug\netstandard2.0\SolutionManager.dll
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\obj\Debug\netstandard2.0\SolutionManager.csprojAssemblyReference.cache
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\obj\Debug\netstandard2.0\SolutionManager.csproj.CoreCompileInputs.cache
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\obj\Debug\netstandard2.0\SolutionManager.AssemblyInfoInputs.cache
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\obj\Debug\netstandard2.0\SolutionManager.AssemblyInfo.cs
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\bin\Debug\netstandard2.0\SolutionManager.pdb
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\bin\Debug\netstandard2.0\Coding.dll
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\bin\Debug\netstandard2.0\Coding.pdb
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\obj\Debug\netstandard2.0\SolutionManager.csproj.CopyComplete
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\obj\Debug\netstandard2.0\SolutionManager.dll
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\SolutionManager\obj\Debug\netstandard2.0\SolutionManager.pdb

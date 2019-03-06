@@ -1,0 +1,11 @@
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\bin\Debug\netcoreapp2.1\AppTest.deps.json
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\bin\Debug\netcoreapp2.1\AppTest.runtimeconfig.json
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\bin\Debug\netcoreapp2.1\AppTest.runtimeconfig.dev.json
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\bin\Debug\netcoreapp2.1\AppTest.dll
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\bin\Debug\netcoreapp2.1\AppTest.pdb
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\obj\Debug\netcoreapp2.1\AppTest.csproj.CoreCompileInputs.cache
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\obj\Debug\netcoreapp2.1\AppTest.AssemblyInfoInputs.cache
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\obj\Debug\netcoreapp2.1\AppTest.AssemblyInfo.cs
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\obj\Debug\netcoreapp2.1\AppTest.dll
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\obj\Debug\netcoreapp2.1\AppTest.pdb
+C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\obj\Debug\netcoreapp2.1\AppTest.csprojAssemblyReference.cache

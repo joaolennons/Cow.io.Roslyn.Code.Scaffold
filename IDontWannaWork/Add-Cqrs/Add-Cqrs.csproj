@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <RootNamespace>Hanoog</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Build" Version="15.9.20" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SolutionManager\SolutionManager.csproj" />
+    <ProjectReference Include="..\Templates\Templates.csproj" />
+  </ItemGroup>
+
+</Project>

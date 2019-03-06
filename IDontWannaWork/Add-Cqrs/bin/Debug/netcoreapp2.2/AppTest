@@ -1,0 +1,20 @@
+namespace Heineken
+{
+    using System;
+
+    public class BeerQuery : IRequest<BeerResponse>
+    {
+        public int Quantity
+        {
+            get;
+        }
+    }
+
+    public class BeerResponse
+    {
+        public int Quantity
+        {
+            get;
+        }
+    }
+}
