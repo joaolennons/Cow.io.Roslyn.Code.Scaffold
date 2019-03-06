@@ -13,4 +13,15 @@
         public static string Notifications => nameof(Notifications);
         public static string Commands => nameof(Commands);
     }
+
+    public class Method
+    {
+        public static string EmptyAsyncBlock => "return await Task.FromResult(0);";
+
+        public class Returns
+        {
+            public static string Void => nameof(Void);
+            public static string Task => nameof(Task);
+        }
+    }
 }

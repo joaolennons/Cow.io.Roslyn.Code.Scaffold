@@ -13,5 +13,13 @@ namespace Templates
             }
             return @class;
         }
+
+        public static MethodDeclarationSyntax WithMethod(this ClassDeclarationSyntax @class, string name)
+        {
+            return SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(Method.Returns.Task), name)
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.AsyncKeyword))
+                .WithBody(SyntaxFactory.Block(SyntaxFactory.ParseStatement(Method.EmptyAsyncBlock)));
+        }
     }
 }

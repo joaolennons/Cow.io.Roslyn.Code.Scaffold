@@ -35,8 +35,9 @@ namespace Templates
                 if (_action.HasFlag(Action.Delete))
                     inheritances.Add(TemplateConsts.INotificationHandler(FormatInheritance(Action.Delete)));
 
-                return Namespace.AddUsings(System, MediatR)
-                        .AddMembers(Class.Inherits(inheritances.ToArray()))
+                return Namespace.AddUsings(System, MediatR, Tasks)
+                        .AddMembers(Class.Inherits(inheritances.ToArray())
+                        .AddMembers(Class.WithMethod("Testing")))
                         .NormalizeWhitespace()
                         .ToFullString();
             }
@@ -50,6 +51,7 @@ namespace Templates
         private NamespaceDeclarationSyntax Namespace => SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(_namespace)).NormalizeWhitespace();
         private UsingDirectiveSyntax System => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(nameof(System)));
         private UsingDirectiveSyntax MediatR => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(nameof(MediatR)));
+        private UsingDirectiveSyntax Tasks => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Threading.Tasks"));
         private ClassDeclarationSyntax Class => SyntaxFactory.ClassDeclaration(_name).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
     }
 }
