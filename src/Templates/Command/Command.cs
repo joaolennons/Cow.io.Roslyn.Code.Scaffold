@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using Coding;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -15,10 +14,8 @@ namespace Templates
         public string FileName => $"{_name}.cs";
         public string Folder => Folders.Commands;
 
-        public Command(string @namespace, string action, string name)
+        public Command(string @namespace, string name, Action action)
         {
-            action = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(action);
-            name = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(name);
             _namespace = @namespace;
             _name = $"{action}{name}{nameof(Command)}";
         }

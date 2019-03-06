@@ -36,6 +36,21 @@ namespace Templates
                 .WithBody(SyntaxFactory.Block(SyntaxFactory.ParseStatement(Method.EmptyAsyncBlock)));
         }
 
+        public static MethodDeclarationSyntax WithAsyncMethod<T>(this ClassDeclarationSyntax @class, string name, params string[] parameters)
+        {
+            var @params = new List<ParameterSyntax>();
+            foreach (var param in parameters)
+                @params.Add(CreateParameter(param.Split(':')[0], param.Split(':')[1]));
+
+            @params.Add(CreateParameter("cancellationToken", nameof(System.Threading.CancellationToken)));
+
+            return SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(Method.Returns.TaskOf(typeof(T).Name)), name)
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.AsyncKeyword))
+                .AddParameterListParameters(@params.ToArray())
+                .WithBody(SyntaxFactory.Block(SyntaxFactory.ParseStatement($"{Keywords.Return} {Method.EmptyAsyncBlockOf<T>()}")));
+        }
+
         private static ParameterSyntax CreateParameter(string name, string type) =>
             SyntaxFactory.Parameter(SyntaxFactory.Identifier(name))
             .WithType(SyntaxFactory.ParseTypeName(type));

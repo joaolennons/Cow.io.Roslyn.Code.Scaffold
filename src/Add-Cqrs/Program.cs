@@ -54,10 +54,15 @@ namespace Add_Cqrs
             if (scaffoldKind.HasFlag(Scaffold.Command) || scaffoldKind.HasFlag(Scaffold.All))
             {
                 Console.WriteLine("Gerando Command...");
-                var code = new Command("Heineken", "Create", "Beer");
 
-                new ProjectManager(project)
-                    .AddDocument(code);
+                if (crud.HasFlag(Crud.Create) || crud.HasFlag(Crud.All))
+                {
+                    new ProjectManager(project)
+                        .AddDocument(new Command("Heineken", "Beer", Templates.Action.Create));
+
+                    new ProjectManager(project)
+                        .AddDocument(new CommandHandler("Heineken", "Beer", Templates.Action.Create | Templates.Action.Update));
+                }
             }
 
             Console.WriteLine("Aperte uma tecla para sair.");
