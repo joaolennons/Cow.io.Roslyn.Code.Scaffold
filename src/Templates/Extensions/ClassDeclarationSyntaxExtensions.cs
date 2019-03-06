@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
+﻿using System.Collections.Generic;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Templates
@@ -14,12 +15,30 @@ namespace Templates
             return @class;
         }
 
-        public static MethodDeclarationSyntax WithMethod(this ClassDeclarationSyntax @class, string name)
+        /// <summary>
+        /// </summary>
+        /// <param name="class"></param>
+        /// <param name="name"></param>
+        /// <param name="parameters">ex.: p1:string, p2:int</param>
+        /// <returns></returns>
+        public static MethodDeclarationSyntax WithAsyncMethod(this ClassDeclarationSyntax @class, string name, params string[] parameters)
         {
+            var @params = new List<ParameterSyntax>();
+            foreach (var param in parameters)
+                @params.Add(CreateParameter(param.Split(':')[0], param.Split(':')[1]));
+
+            @params.Add(CreateParameter("cancellationToken", nameof(System.Threading.CancellationToken)));
+
             return SyntaxFactory.MethodDeclaration(SyntaxFactory.ParseTypeName(Method.Returns.Task), name)
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword))
                 .AddModifiers(SyntaxFactory.Token(SyntaxKind.AsyncKeyword))
+                .AddParameterListParameters(@params.ToArray())
                 .WithBody(SyntaxFactory.Block(SyntaxFactory.ParseStatement(Method.EmptyAsyncBlock)));
         }
+
+        private static ParameterSyntax CreateParameter(string name, string type) =>
+            SyntaxFactory.Parameter(SyntaxFactory.Identifier(name))
+            .WithType(SyntaxFactory.ParseTypeName(type));
+
     }
 }

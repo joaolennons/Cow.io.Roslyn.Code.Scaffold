@@ -16,7 +16,7 @@
 
     public class Method
     {
-        public static string EmptyAsyncBlock => "return await Task.FromResult(0);";
+        public static string EmptyAsyncBlock => "await Task.FromResult(0);";
 
         public class Returns
         {

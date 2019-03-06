@@ -35,9 +35,19 @@ namespace Templates
                 if (_action.HasFlag(Action.Delete))
                     inheritances.Add(TemplateConsts.INotificationHandler(FormatInheritance(Action.Delete)));
 
-                return Namespace.AddUsings(System, MediatR, Tasks)
-                        .AddMembers(Class.Inherits(inheritances.ToArray())
-                        .AddMembers(Class.WithMethod("Testing")))
+                var @class = Class.Inherits(inheritances.ToArray());
+
+                if (_action.HasFlag(Action.Create))
+                    @class = @class.AddMembers(Class.WithAsyncMethod("Handle", $"{nameof(Notification).ToLower()}:{FormatInheritance(Action.Create)}"));
+
+                if (_action.HasFlag(Action.Update))
+                    @class = @class.AddMembers(Class.WithAsyncMethod("Handle", $"{nameof(Notification).ToLower()}:{FormatInheritance(Action.Update)}"));
+
+                if (_action.HasFlag(Action.Delete))
+                    @class = @class.AddMembers(Class.WithAsyncMethod("Handle", $"{nameof(Notification).ToLower()}:{FormatInheritance(Action.Delete)}"));
+
+                return Namespace.AddUsings(System, MediatR, Threading, Tasks)
+                        .AddMembers(@class)
                         .NormalizeWhitespace()
                         .ToFullString();
             }
@@ -52,6 +62,7 @@ namespace Templates
         private UsingDirectiveSyntax System => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(nameof(System)));
         private UsingDirectiveSyntax MediatR => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(nameof(MediatR)));
         private UsingDirectiveSyntax Tasks => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Threading.Tasks"));
+        private UsingDirectiveSyntax Threading => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Threading"));
         private ClassDeclarationSyntax Class => SyntaxFactory.ClassDeclaration(_name).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
     }
 }
