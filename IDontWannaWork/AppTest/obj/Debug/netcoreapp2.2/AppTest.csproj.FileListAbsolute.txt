@@ -1,6 +1,0 @@
-C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\bin\Debug\netcoreapp2.2\AppTest.deps.json
-C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\bin\Debug\netcoreapp2.2\AppTest.runtimeconfig.json
-C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\bin\Debug\netcoreapp2.2\AppTest.runtimeconfig.dev.json
-C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\obj\Debug\netcoreapp2.2\AppTest.csproj.CoreCompileInputs.cache
-C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\obj\Debug\netcoreapp2.2\AppTest.AssemblyInfoInputs.cache
-C:\Users\João\source\repos\Hanoog\Tools\IDontWannaWork\AppTest\obj\Debug\netcoreapp2.2\AppTest.AssemblyInfo.cs
