@@ -7,7 +7,7 @@ using SolutionManager;
 
 namespace Add_Cqrs
 {
-    public class CommandChain
+    internal class CommandChain
     {
         private readonly ProjectInSolution _project;
         private readonly IList<ISourceCode> _commands;
