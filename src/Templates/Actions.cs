@@ -7,6 +7,7 @@ namespace Templates
     {
         Create = 1,
         Update = 2,
-        Delete = 4
+        Delete = 4,
+        None = 8
     }
 }

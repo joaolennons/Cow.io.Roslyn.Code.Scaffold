@@ -38,13 +38,13 @@ namespace Templates
                 var @class = Class.Inherits(inheritances.ToArray());
 
                 if (_action.HasFlag(Action.Create))
-                    @class = @class.AddMembers(Class.WithAsyncMethod("Handle", $"{nameof(Notification).ToLower()}:{FormatInheritance(Action.Create)}"));
+                    @class = @class.AddMembers(Class.WithAsyncMethod("Handle", parameters: $"{nameof(Notification).ToLower()}:{FormatInheritance(Action.Create)}"));
 
                 if (_action.HasFlag(Action.Update))
-                    @class = @class.AddMembers(Class.WithAsyncMethod("Handle", $"{nameof(Notification).ToLower()}:{FormatInheritance(Action.Update)}"));
+                    @class = @class.AddMembers(Class.WithAsyncMethod("Handle", parameters: $"{nameof(Notification).ToLower()}:{FormatInheritance(Action.Update)}"));
 
                 if (_action.HasFlag(Action.Delete))
-                    @class = @class.AddMembers(Class.WithAsyncMethod("Handle", $"{nameof(Notification).ToLower()}:{FormatInheritance(Action.Delete)}"));
+                    @class = @class.AddMembers(Class.WithAsyncMethod("Handle", parameters: $"{nameof(Notification).ToLower()}:{FormatInheritance(Action.Delete)}"));
 
                 return Namespace.AddUsings(System, MediatR, Threading, Tasks)
                         .AddMembers(@class)

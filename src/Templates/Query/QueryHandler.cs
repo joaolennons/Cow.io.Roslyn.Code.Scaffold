@@ -28,9 +28,9 @@ namespace Templates
             get
             {
                 return Namespace
-                    .AddUsings(System, MediatR, Tasks, Threading)
+                    .AddUsings(MediatR, Tasks, Threading)
                     .AddMembers(
-                        Class.Inherits(TemplateConsts.IQueryHandler(_queryRequest, _queryResponse))
+                        Class.Inherits(TemplateConsts.IRequestHandler(_queryRequest, _queryResponse))
                         .AddMembers(Class.WithAsyncMethod("Handle", _queryResponse, $"request:{_queryRequest}")))
                     .NormalizeWhitespace()
                     .ToFullString();
@@ -38,7 +38,6 @@ namespace Templates
         }
 
         private NamespaceDeclarationSyntax Namespace => SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(_namespace)).NormalizeWhitespace();
-        private UsingDirectiveSyntax System => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(nameof(System)));
         private UsingDirectiveSyntax MediatR => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(nameof(MediatR)));
         private UsingDirectiveSyntax Tasks => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Threading.Tasks"));
         private UsingDirectiveSyntax Threading => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Threading"));

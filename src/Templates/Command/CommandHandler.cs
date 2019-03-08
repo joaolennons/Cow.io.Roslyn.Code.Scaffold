@@ -29,11 +29,11 @@ namespace Templates
             {
                 var inheritances = new List<string>();
                 if (_action.HasFlag(Action.Create))
-                    inheritances.Add(TemplateConsts.ICommandHandler(FormatInheritance(Action.Create), nameof(Guid)));
+                    inheritances.Add(TemplateConsts.IRequestHandler(FormatInheritance(Action.Create), nameof(Guid)));
                 if (_action.HasFlag(Action.Update))
-                    inheritances.Add(TemplateConsts.ICommandHandler(FormatInheritance(Action.Update), nameof(Guid)));
+                    inheritances.Add(TemplateConsts.IRequestHandler(FormatInheritance(Action.Update), nameof(Guid)));
                 if (_action.HasFlag(Action.Delete))
-                    inheritances.Add(TemplateConsts.ICommandHandler(FormatInheritance(Action.Delete), nameof(Guid)));
+                    inheritances.Add(TemplateConsts.IRequestHandler(FormatInheritance(Action.Delete), nameof(Guid)));
 
                 var @class = Class.Inherits(inheritances.ToArray());
 

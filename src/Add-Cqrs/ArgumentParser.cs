@@ -10,26 +10,57 @@ namespace Hanoog
             args.FirstOrDefault(o => o.Contains("-Project"))
             .Replace("-Project", string.Empty).Trim() : string.Empty;
 
-        public static Scaffold ParseScaffold(string[] args) =>
-            args.Any(o => o.Contains("-Query")) ? Scaffold.Query
-                : args.Any(o => o.Contains("-Command")) ? Scaffold.Command
-                : args.Any(o => o.Contains("-Notification")) ? Scaffold.Notification
-                : Scaffold.All;
+        public static Scaffold ParseScaffold(string[] args)
+        {
+            bool all = args.Any(o => o.Contains("-All"));
+            bool query = args.Any(o => o.Contains("-Query"));
+            bool notification = args.Any(o => o.Contains("-Notification"));
+            bool command = args.Any(o => o.Contains("-Command"));
 
-        public static Crud ParseAction(string[] args)
+            var flags = Scaffold.None;
+
+            if (all)
+                return Scaffold.Query | Scaffold.Notification | Scaffold.Command;
+
+            if (query)
+                flags = Scaffold.Query;
+
+            if (notification)
+                flags = flags | Scaffold.Notification;
+
+            if (command)
+                flags = flags | Scaffold.Command;
+
+            return flags;
+        }
+
+        internal static string ParseName(string[] args) =>
+            args.Any(o => o.Contains("-Name")) ?
+                args.FirstOrDefault(o => o.Contains("-Name"))
+                .Replace("-Name", string.Empty).Trim() : string.Empty;
+
+        internal static string ParseContext(string[] args) =>
+            args.Any(o => o.Contains("-Context")) ?
+                    args.FirstOrDefault(o => o.Contains("-Context"))
+                    .Replace("-Context", string.Empty).Trim() : string.Empty;
+
+        public static Templates.Action ParseAction(string[] args)
         {
             string action = args.FirstOrDefault(o => o.Contains("-Action")).Replace("-Action", string.Empty).Trim();
-            Crud flags = Crud.All;
+            var flags = Templates.Action.None;
 
             if (string.IsNullOrEmpty(action))
                 return flags;
 
+            if (action == "All")
+                return Templates.Action.Create | Templates.Action.Update | Templates.Action.Delete;
+
             if (action.Contains("C"))
-                flags = Crud.Create;
+                flags = Templates.Action.Create;
             if (action.Contains("U"))
-                flags = flags | Crud.Update;
+                flags = flags | Templates.Action.Update;
             if (action.Contains("D"))
-                flags = flags | Crud.Delete;
+                flags = flags | Templates.Action.Delete;
 
             return flags;
         }
@@ -38,18 +69,9 @@ namespace Hanoog
     [Flags]
     internal enum Scaffold
     {
-        All = 1,
-        Query = 2,
-        Command = 4,
-        Notification = 8
-    }
-
-    [Flags]
-    internal enum Crud
-    {
-        All = 1,
-        Create = 2,
-        Update = 4,
-        Delete = 8
+        Query = 1,
+        Command = 2,
+        Notification = 4,
+        None = 8
     }
 }

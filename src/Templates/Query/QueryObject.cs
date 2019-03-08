@@ -33,7 +33,7 @@ namespace Templates
                         SyntaxFactory.AccessorDeclaration(SyntaxKind.SetAccessorDeclaration).WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken)));
 
                 return Namespace
-                    .AddUsings(Usings)
+                    .AddUsings(MediatR, Collections)
                     .AddMembers(
                         QueryClass.Inherits(TemplateConsts.IRequest(_queryResponse)))
                     .AddMembers(
@@ -47,7 +47,8 @@ namespace Templates
         }
 
         private NamespaceDeclarationSyntax Namespace => SyntaxFactory.NamespaceDeclaration(SyntaxFactory.ParseName(_namespace)).NormalizeWhitespace();
-        private UsingDirectiveSyntax Usings => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System"));
+        private UsingDirectiveSyntax MediatR => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName(nameof(MediatR)));
+        private UsingDirectiveSyntax Collections => SyntaxFactory.UsingDirective(SyntaxFactory.ParseName("System.Collections.Generic"));
         private ClassDeclarationSyntax QueryClass => SyntaxFactory.ClassDeclaration(_queryName).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
         private ClassDeclarationSyntax ResponseClass => SyntaxFactory.ClassDeclaration(_queryResponse).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
         private ClassDeclarationSyntax Item => SyntaxFactory.ClassDeclaration(nameof(Item)).AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));

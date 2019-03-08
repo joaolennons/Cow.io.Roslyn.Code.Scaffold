@@ -10,15 +10,23 @@ namespace Add_Cqrs
     {
         private static void Main(string[] args)
         {
-            args = new string[] { "-Project AppTest", "-All", "-Action All" };
+            args = new string[] { "-Project AppTest", "-All", "-Action CUD", "-Context Beer", "-Name Heineken" };
 
             var projects = SolutionProvider.GetProjects();
 
             var projectName = ArgumentParser.ParseProject(args);
-            var scaffoldKind = ArgumentParser.ParseScaffold(args);
+            var scaffold = ArgumentParser.ParseScaffold(args);
             var crud = ArgumentParser.ParseAction(args);
+            var context = ArgumentParser.ParseContext(args);
+            var name = ArgumentParser.ParseName(args);
 
             if (string.IsNullOrEmpty(projectName))
+                return;
+
+            if (string.IsNullOrEmpty(context))
+                return;
+
+            if (string.IsNullOrEmpty(name))
                 return;
 
             var project = projects.FirstOrDefault(o => o.ProjectName == projectName);
@@ -29,44 +37,14 @@ namespace Add_Cqrs
                 return;
             }
 
-            if (scaffoldKind.HasFlag(Scaffold.Query) || scaffoldKind.HasFlag(Scaffold.All))
-            {
-                Console.WriteLine("Gerando QueryObject...");
-                var code = new QueryObject("Heineken", "Beer");
-
-                new ProjectManager(project)
-                    .AddDocument(code);
-
-                new ProjectManager(project)
-                    .AddDocument(new QueryHandler("Heineken", "Beer"));
-            }
-
-            if (scaffoldKind.HasFlag(Scaffold.Notification) || scaffoldKind.HasFlag(Scaffold.All))
-            {
-                Console.WriteLine("Gerando Notification...");
-                if (crud.HasFlag(Crud.Create) || crud.HasFlag(Crud.All))
-                {
-                    new ProjectManager(project)
-                        .AddDocument(new Notification("Heineken", "Beer", Templates.Action.Create));
-
-                    new ProjectManager(project)
-                        .AddDocument(new NotificationHandler("Heineken", "Beer", Templates.Action.Create | Templates.Action.Update));
-                }
-            }
-
-            if (scaffoldKind.HasFlag(Scaffold.Command) || scaffoldKind.HasFlag(Scaffold.All))
-            {
-                Console.WriteLine("Gerando Command...");
-
-                if (crud.HasFlag(Crud.Create) || crud.HasFlag(Crud.All))
-                {
-                    new ProjectManager(project)
-                        .AddDocument(new Command("Heineken", "Beer", Templates.Action.Create));
-
-                    new ProjectManager(project)
-                        .AddDocument(new CommandHandler("Heineken", "Beer", Templates.Action.Create | Templates.Action.Update));
-                }
-            }
+            new CommandChain(project)
+                .ChainIf<QueryObject>(scaffold.HasFlag(Scaffold.Query), context, name)
+                .ChainIf<QueryHandler>(scaffold.HasFlag(Scaffold.Query), context, name)
+                .ChainEach<Notification>(scaffold.HasFlag(Scaffold.Notification), crud, context, name)
+                .ChainIf<NotificationHandler>(scaffold.HasFlag(Scaffold.Notification), context, name, crud)
+                .ChainEach<Command>(scaffold.HasFlag(Scaffold.Command), crud, context, name)
+                .ChainIf<CommandHandler>(scaffold.HasFlag(Scaffold.Command), context, name, crud)
+                .Execute();
 
             Console.WriteLine("Aperte uma tecla para sair.");
             Console.Read();
