@@ -19,9 +19,6 @@ namespace Hanoog
 
             var flags = Scaffold.None;
 
-            if (all)
-                return Scaffold.Query | Scaffold.Notification | Scaffold.Command;
-
             if (query)
                 flags = Scaffold.Query;
 
@@ -31,13 +28,16 @@ namespace Hanoog
             if (command)
                 flags = flags | Scaffold.Command;
 
+            if (all || flags == Scaffold.None)
+                return Scaffold.Query | Scaffold.Notification | Scaffold.Command;
+
             return flags;
         }
 
-        internal static string ParseName(string[] args) =>
-            args.Any(o => o.Contains("-Name")) ?
-                args.FirstOrDefault(o => o.Contains("-Name"))
-                .Replace("-Name", string.Empty).Trim() : string.Empty;
+        internal static string ParseEntity(string[] args) =>
+            args.Any(o => o.Contains("-Entity")) ?
+                args.FirstOrDefault(o => o.Contains("-Entity"))
+                .Replace("-Entity", string.Empty).Trim() : string.Empty;
 
         internal static string ParseContext(string[] args) =>
             args.Any(o => o.Contains("-Context")) ?
@@ -46,13 +46,10 @@ namespace Hanoog
 
         public static Templates.Action ParseAction(string[] args)
         {
-            string action = args.FirstOrDefault(o => o.Contains("-Action")).Replace("-Action", string.Empty).Trim();
+            string action = args.Any(o => o.Contains("-Action")) ? args.FirstOrDefault(o => o.Contains("-Action")).Replace("-Action", string.Empty).Trim() : string.Empty;
             var flags = Templates.Action.None;
 
-            if (string.IsNullOrEmpty(action))
-                return flags;
-
-            if (action == "All")
+            if (string.IsNullOrEmpty(action) || action == "All")
                 return Templates.Action.Create | Templates.Action.Update | Templates.Action.Delete;
 
             if (action.Contains("C"))

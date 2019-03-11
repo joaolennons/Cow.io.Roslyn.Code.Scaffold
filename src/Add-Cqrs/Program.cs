@@ -10,7 +10,14 @@ namespace Add_Cqrs
     {
         private static void Main(string[] args)
         {
-            args = new string[] { "-Project AppTest", "-All", "-Action CUD", "-Context Beer", "-Name Heineken" };
+            if (args.Contains("-Help"))
+            {
+                Console.Write(Help.Info);
+                return;
+            }
+
+            foreach (var param in args)
+                Console.WriteLine(param);
 
             var projects = SolutionProvider.GetProjects();
 
@@ -18,16 +25,25 @@ namespace Add_Cqrs
             var scaffold = ArgumentParser.ParseScaffold(args);
             var crud = ArgumentParser.ParseAction(args);
             var context = ArgumentParser.ParseContext(args);
-            var name = ArgumentParser.ParseName(args);
+            var entity = ArgumentParser.ParseEntity(args);
 
             if (string.IsNullOrEmpty(projectName))
+            {
+                Console.WriteLine(Help.Mandatory("-Project"));
                 return;
+            }
 
             if (string.IsNullOrEmpty(context))
+            {
+                Console.WriteLine(Help.Mandatory("-Context"));
                 return;
+            }
 
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrEmpty(entity))
+            {
+                Console.WriteLine(Help.Mandatory("-Entity"));
                 return;
+            }
 
             var project = projects.FirstOrDefault(o => o.ProjectName == projectName);
 
@@ -38,12 +54,12 @@ namespace Add_Cqrs
             }
 
             new CommandChain(project)
-                .ChainIf<QueryObject>(scaffold.HasFlag(Scaffold.Query), context, name)
-                .ChainIf<QueryHandler>(scaffold.HasFlag(Scaffold.Query), context, name)
-                .ChainEach<Notification>(scaffold.HasFlag(Scaffold.Notification), crud, context, name)
-                .ChainIf<NotificationHandler>(scaffold.HasFlag(Scaffold.Notification), context, name, crud)
-                .ChainEach<Command>(scaffold.HasFlag(Scaffold.Command), crud, context, name)
-                .ChainIf<CommandHandler>(scaffold.HasFlag(Scaffold.Command), context, name, crud)
+                .ChainIf<QueryObject>(scaffold.HasFlag(Scaffold.Query), context, entity)
+                .ChainIf<QueryHandler>(scaffold.HasFlag(Scaffold.Query), context, entity)
+                .ChainEach<Notification>(scaffold.HasFlag(Scaffold.Notification), crud, context, entity)
+                .ChainIf<NotificationHandler>(scaffold.HasFlag(Scaffold.Notification), context, entity, crud)
+                .ChainEach<Command>(scaffold.HasFlag(Scaffold.Command), crud, context, entity)
+                .ChainIf<CommandHandler>(scaffold.HasFlag(Scaffold.Command), context, entity, crud)
                 .Execute();
 
             Console.WriteLine("Aperte uma tecla para sair.");

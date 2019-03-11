@@ -19,3 +19,5 @@ package-lock.json
 .DS_Store
 Thumbs.db
 .env
+/src/Add-Cqrs/Properties/PublishProfiles/FolderProfile.pubxml.user
+/src/Add-Cqrs/Properties/PublishProfiles/FolderProfile.pubxml
