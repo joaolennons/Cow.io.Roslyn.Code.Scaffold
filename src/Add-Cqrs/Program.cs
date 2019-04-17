@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
-using Hanoog;
+﻿using Hanoog;
 using SolutionManager;
+using System;
+using System.Linq;
 using Templates;
 
 namespace Add_Cqrs
@@ -10,6 +10,7 @@ namespace Add_Cqrs
     {
         private static void Main(string[] args)
         {
+            args = new string[] { "-Project AppTest", "-Context Teste", "-Entity Entity" };
             if (args.Contains("-Help"))
             {
                 Console.Write(Help.Info);

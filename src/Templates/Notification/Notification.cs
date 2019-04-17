@@ -27,7 +27,8 @@ namespace Templates
                 return Namespace
                     .AddUsings(System, MediatR)
                     .AddMembers(
-                        Class.Inherits(TemplateConsts.INotification))
+                        Class.Inherits(TemplateConsts.INotification)
+                        .AddMembers(Class.WithParameterlessMethod(_name, "Raise")))
                     .NormalizeWhitespace()
                     .ToFullString();
             }

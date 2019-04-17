@@ -26,6 +26,7 @@
             public static string Void => Keywords.Void;
             public static string Task => nameof(Task);
             public static string TaskOf(string type) => $"{nameof(Task)}<{type}>";
+            public static string Self(string self) => $"return new {self}();";
         }
     }
 
