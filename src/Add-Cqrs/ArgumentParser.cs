@@ -6,16 +6,16 @@ namespace Hanoog
     internal static class ArgumentParser
     {
         public static string ParseProject(string[] args) =>
-            args.Any(o => o.Contains("-Project")) ?
-            args.FirstOrDefault(o => o.Contains("-Project"))
+            args.Any(o => o.ContainsIgnoreCase("-Project")) ?
+            args.FirstOrDefault(o => o.ContainsIgnoreCase("-Project"))
             .Replace("-Project", string.Empty).Trim() : string.Empty;
 
         public static Scaffold ParseScaffold(string[] args)
         {
-            bool all = args.Any(o => o.Contains("-All"));
-            bool query = args.Any(o => o.Contains("-Query"));
-            bool notification = args.Any(o => o.Contains("-Notification"));
-            bool command = args.Any(o => o.Contains("-Command"));
+            bool all = args.Any(o => o.ContainsIgnoreCase("-All"));
+            bool query = args.Any(o => o.ContainsIgnoreCase("-Query"));
+            bool notification = args.Any(o => o.ContainsIgnoreCase("-Notification"));
+            bool command = args.Any(o => o.ContainsIgnoreCase("-Command"));
 
             var flags = Scaffold.None;
 
@@ -35,28 +35,28 @@ namespace Hanoog
         }
 
         internal static string ParseEntity(string[] args) =>
-            args.Any(o => o.Contains("-Entity")) ?
-                args.FirstOrDefault(o => o.Contains("-Entity"))
+            args.Any(o => o.ContainsIgnoreCase("-Entity")) ?
+                args.FirstOrDefault(o => o.ContainsIgnoreCase("-Entity"))
                 .Replace("-Entity", string.Empty).Trim() : string.Empty;
 
         internal static string ParseContext(string[] args) =>
-            args.Any(o => o.Contains("-Context")) ?
-                    args.FirstOrDefault(o => o.Contains("-Context"))
+            args.Any(o => o.ContainsIgnoreCase("-Context")) ?
+                    args.FirstOrDefault(o => o.ContainsIgnoreCase("-Context"))
                     .Replace("-Context", string.Empty).Trim() : string.Empty;
 
         public static Templates.Action ParseAction(string[] args)
         {
-            string action = args.Any(o => o.Contains("-Action")) ? args.FirstOrDefault(o => o.Contains("-Action")).Replace("-Action", string.Empty).Trim() : string.Empty;
+            string action = args.Any(o => o.ContainsIgnoreCase("-Action")) ? args.FirstOrDefault(o => o.ContainsIgnoreCase("-Action")).Replace("-Action", string.Empty).Trim() : string.Empty;
             var flags = Templates.Action.None;
 
             if (string.IsNullOrEmpty(action) || action == "All")
                 return Templates.Action.Create | Templates.Action.Update | Templates.Action.Delete;
 
-            if (action.Contains("C"))
+            if (action.ContainsIgnoreCase("C"))
                 flags = Templates.Action.Create;
-            if (action.Contains("U"))
+            if (action.ContainsIgnoreCase("U"))
                 flags = flags | Templates.Action.Update;
-            if (action.Contains("D"))
+            if (action.ContainsIgnoreCase("D"))
                 flags = flags | Templates.Action.Delete;
 
             return flags;
