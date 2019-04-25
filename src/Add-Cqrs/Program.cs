@@ -10,8 +10,8 @@ namespace Add_Cqrs
     {
         private static void Main(string[] args)
         {
-            args = new string[] { "-Project AppTest", "-Context Teste", "-Entity Entity" };
-            if (args.Contains("-Help"))
+            //args = new string[] { "-Project AppTest", "-Context Teste", "-Entity Entity" };
+            if (args.ContainsIgnoreCase("-Help"))
             {
                 Console.Write(Help.Info);
                 return;
